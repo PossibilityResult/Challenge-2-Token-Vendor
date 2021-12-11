@@ -1,6 +1,7 @@
 const { utils } = require("ethers");
 const fs = require("fs");
 const chalk = require("chalk");
+require('dotenv').config();
 
 require("@nomiclabs/hardhat-waffle");
 require("@tenderly/hardhat-tenderly");
@@ -25,7 +26,7 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = "localhost";
+const defaultNetwork = "rinkeby";
 
 const mainnetGwei = 21;
 
@@ -257,7 +258,7 @@ module.exports = {
     },
   },
   etherscan: {
-    apiKey: "PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8", // your api key here
+    apiKey: process.env.ETHERSCAN_API, // your api key here
   },
 };
 

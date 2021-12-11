@@ -1,25 +1,23 @@
 // deploy/00_deploy_your_contract.js
 
-const { ethers } = require("hardhat");
+//const { ethers } = require("hardhat");
 
-const localChainId = "31337";
-
-module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
+module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  const chainId = await getChainId();
-
   await deploy("YourToken", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+    //args: [ "Hello", ethers.utils.parseEther("1.5") ],
     log: true,
   });
 
-  // Todo: transfer tokens to frontend address
-  const yourToken = await ethers.getContract("YourToken", deployer);
+  //Todo: transfer tokens to frontend address
+  //const token = await ethers.getContractAt("YourToken", "0x5FbDB2315678afecb367f032d93F642f64180aa3");
+  //const yourToken = await deployments.get("YourToken");
+  //const result = await yourToken.transfer( "0x88990dB39B37fC8434F28CAC2f56b25014cC8679", ethers.utils.parseEther("1000") );
 
-  // const result = await yourToken.transfer("YOUR_FRONT_END_ADDRESS", ethers.utils.parseEther("1000") );
+  // const yourToken = await deployments.get("YourToken");
 
   /*
     // Getting a previously deployed contract
@@ -56,15 +54,5 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
    LibraryName: **LibraryAddress**
   });
   */
-
-  // Verify your contracts with Etherscan
-  // You don't want to verify on localhost
-  if (chainId !== localChainId) {
-    await run("verify:verify", {
-      address: yourToken.address,
-      contract: "contracts/YourToken.sol:YourToken",
-      contractArguments: [],
-    });
-  }
 };
 module.exports.tags = ["YourToken"];
